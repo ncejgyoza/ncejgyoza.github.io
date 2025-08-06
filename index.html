@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NCEJ GYOZA TALK</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      font-family: sans-serif;
+    }
+
+    body {
+      background: url('https://ncejgyoza.github.io/background.png') no-repeat center center;
+      background-size: contain;
+      background-color: #000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    .content-wrapper {
+      margin-top: 26vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .icon-wrapper {
+      position: relative;
+      width: 300px;
+      height: 300px;
+    }
+
+    .star {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      animation: spin 4s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    #icon {
+      position: absolute;
+      width: 240px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      transition: transform 0.3s ease;
+      cursor: pointer;
+      z-index: 2;
+    }
+
+    #icon.shake {
+      animation: shake 0.4s;
+    }
+
+    @keyframes shake {
+      0% { transform: translate(-50%, -50%) rotate(0deg); }
+      10% { transform: translate(-50%, -50%) rotate(-2deg); }
+      20% { transform: translate(-50%, -50%) rotate(2deg); }
+      30% { transform: translate(-50%, -50%) rotate(0deg); }
+      100% { transform: translate(-50%, -50%) scale(1.1); }
+    }
+
+    .click-text {
+      margin-top: 10px;
+      font-size: 24px;
+      font-weight: bold;
+      color: #ff3399;
+      animation: blink 1s infinite;
+      z-index: 3;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    /* 모바일 대응: 아이콘 및 텍스트 크기 조절 */
+    @media (max-width: 480px) {
+      .icon-wrapper {
+        width: 200px;
+        height: 200px;
+      }
+
+      #icon {
+        width: 160px;
+      }
+
+      .click-text {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="content-wrapper">
+    <div class="icon-wrapper">
+      <img class="star" src="https://ncejgyoza.github.io/star.png" alt="star background">
+      <img id="icon" src="https://ncejgyoza.github.io/icon 1.png" alt="icon">
+    </div>
+    <div class="click-text">↑click↑</div>
+  </div>
+
+  <script>
+    const icon = document.getElementById('icon');
+    let clicked = false;
+
+    // 이미지 미리 로드 (모바일 대응)
+    window.addEventListener('load', () => {
+      const preloadImg = new Image();
+      preloadImg.src = 'https://ncejgyoza.github.io/changeimage.png';
+    });
+
+    icon.addEventListener('click', () => {
+      if (clicked) return;
+      clicked = true;
+      icon.classList.add('shake');
+      
+      setTimeout(() => {
+        icon.classList.remove('shake');
+        
+        // 절대 경로로 이미지 변경
+        icon.src = 'https://ncejgyoza.github.io/changeimage.png';
+        
+        // 파일 다운로드
+        const link = document.createElement('a');
+        link.href = 'NCEJ GYOZA TALK.ktheme';
+        link.download = 'NCEJ GYOZA TALK.ktheme';
+        link.click();
+      }, 400);
+    });
+  </script>
+</body>
+</html>
